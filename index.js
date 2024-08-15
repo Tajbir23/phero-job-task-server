@@ -4,6 +4,7 @@ const app = express();
 const cors = require('cors');
 const { client } = require('./mongoDB/mongodb');
 const { signUp } = require('./controllers/signUp');
+const { login } = require('./controllers/login');
 const port = process.env.PORT || 5000;
 
 app.use(cors({
@@ -35,6 +36,8 @@ async function run() {
     console.log("Pinged your deployment. You successfully connected to MongoDB!");
 
     app.post('/signup', async (req, res) => await signUp(req, res))
+    app.post('/login', async (req, res) => await login(req, res))
+
   } finally {
     // Ensures that the client will close when you finish/error
     // await client.close();

@@ -10,11 +10,10 @@ const signUp = async(req, res) => {
         return res.status(400).json({ message: 'Username already exists' });
       }
       
-      await users.insertOne({ name, email, photoUrl });
+      await users.insertOne({ name, email, photoUrl, role: "user", status: "active" });
 
       const token = await jwtSign(name, email)
 
-      console.log(token)
       res.status(201).json({ message: 'User created successfully', token });
     } catch (error) {
         console.log(error)
