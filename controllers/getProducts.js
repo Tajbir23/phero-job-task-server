@@ -1,7 +1,7 @@
 const { products } = require("../mongoDB/collections")
 
 const getProducts = async(req, res) => {
-    const {search, brand_name, category, price_range, sort_order} = req.query
+    const {search, brand_name, category, price_range, sort_order, current_page} = req.query
     try {
         let query = {}
         if(search) query['productName'] = new RegExp(search, 'i')
@@ -30,8 +30,14 @@ const getProducts = async(req, res) => {
             sortCriteria.date = -1;
         }
 
-        const result = await products.find(query).sort(sortCriteria).toArray()
-        res.send(result)
+        const startIndex = (current_page - 1) * 8
+
+
+        const result = await products.find(query).sort(sortCriteria).skip(startIndex).limit(8).toArray()
+        const dataCount = await products.countDocuments(query)
+        const totalPage = Math.ceil(dataCount / 8)
+        console.log(totalPage)
+        res.send({result, totalPage})
 
     } catch (error) {
         res.send(error)
