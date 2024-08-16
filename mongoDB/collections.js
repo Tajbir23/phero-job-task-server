@@ -1,6 +1,7 @@
 const { client } = require("./mongodb");
 
-const users = client.db("product-scope").collection("users");
-const products = client.db("product-scope").collection("products");
+const db = client.db('product-scope')
+const users = db.collection("users");
+const products = db.collection("products");
 
 module.exports = { users, products }
