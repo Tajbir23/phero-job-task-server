@@ -3,6 +3,7 @@ const { jwtSign } = require("./jwtSign");
 
 const signUp = async(req, res) => {
     const {name, email, photoUrl } = req.body;
+    console.log(req.body)
     try {
         const existingUser = await users.findOne({ email });
       
