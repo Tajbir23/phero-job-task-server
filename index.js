@@ -32,7 +32,7 @@ async function run() {
   try {
     // Connect the client to the server	(optional starting in v4.7)
     console.log("Connecting to MongoDB...");
-    await client.connect();
+    // await client.connect();
     console.log("Connected successfully to server");
     // Send a ping to confirm a successful connection
     await client.db("product-scope").command({ ping: 1 });
