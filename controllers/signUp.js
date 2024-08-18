@@ -3,6 +3,7 @@ const { jwtSign } = require("./jwtSign");
 
 const signUp = async(req, res) => {
     const {name, email, photoUrl } = req.body;
+    console.log(req.body)
     try {
         const existingUser = await users.findOne({ email });
       
@@ -13,6 +14,7 @@ const signUp = async(req, res) => {
       await users.insertOne({ name, email, photoUrl, role: "user", status: "active" });
 
       const token = await jwtSign(name, email)
+        console.log(token)
 
       res.status(201).json({ message: 'User created successfully', token });
     } catch (error) {
